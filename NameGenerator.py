@@ -25,11 +25,6 @@ if __name__ == '__main__':
 
 
 # Purely aesthetic
-def pause():
-    sleep(1)
-
-
-# Purely aesthetic
 def load():
     for i in range(3):
         print("Loading...")
@@ -40,9 +35,10 @@ def load():
 def clear():
     # os.system('cls' if os.name == 'nt' else 'clear') usually works for clearing the screen,
     # but not for PyCharm. Instead it inserts an arrow like symbol.
-    print("\n" * 10)
+    print("\n" * 100)
 
 
+# Create name tables
 first_names = [
     "Anogia", "Artorius", "Boreal", "Brutus", "Captain",
     "Conquerus", "DeathBringer", "Donatello", "Defeater",
@@ -56,29 +52,44 @@ last_names = [
 ]
 
 
-print("""\n\n
-Welcome to Name-O-Tron 5700.  Today we're going to predict your name
-if you were born in a post-apocalyptic world.
-""")
+# Our program
+def main():
+    print("""\n\n
+    Welcome to Name-O-Tron 5700.  Today we're going to predict your name
+    if you were born in a post-apocalyptic world.
+    """)
 
-first_name = input("Enter your first name only:\n")
-last_name = input("Enter your last name only:\n")
+    first_name = input("Enter your first name only:\n")
+    last_name = input("Enter your last name only:\n")
+    whole_name = first_name + " " + last_name
+    load()
+    clear()
+    print(f"""
+    Alright {whole_name},
+    Your name has been entered into our machine, 
+    and is being analyzed for a suitable dystopian name.
+    """)
 
-load()
-pause()
-clear()
-print("""
-Your name has been entered into our machine, 
-and is being analyzed for a suitable dystopian name.
-""")
+    input("Press enter to continue...\n")
 
-new_first_name = random.choice(first_names)
-new_last_name = random.choice(last_names)
-new_name = new_first_name + " " + new_last_name
+    new_first_name = random.choice(first_names)
+    new_last_name = random.choice(last_names)
+    new_name = new_first_name + " " + new_last_name
 
-pause()
-load()
-pause()
-clear()
+    load()
+    clear()
 
-print(f"In a destroyed world, your name would be {new_name}!")
+    print(f"In a destroyed world, your name would be {new_name}!")
+    restart = input("Try again? [y/n]:\n")
+    if restart.lower() == "y":
+        print("\n" * 100)
+        main()
+
+    else:
+        print("Thanks for playing!")
+        exit()
+
+
+# Start program:
+main()
+
