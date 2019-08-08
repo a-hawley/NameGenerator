@@ -1,5 +1,5 @@
 # NameGenerator
-This is a project to demonstrate the capabilities of using a database with peewee.  The program generates you a random chose name, and will save it to a local database when the program is run.  Inside the program, you will be prompted to list the unique names that you have been assigned.  
+This is a project to demonstrate the capabilities of using a database with peewee.  The program generates a random name, and will save it to a local database when the program is run.  Inside the program, you will be given a list of all items in database upon program exit.  
 
 # Imports
 You will need to make sure you have the following libraries installed:
