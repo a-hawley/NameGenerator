@@ -11,7 +11,7 @@ db = SqliteDatabase('names.db')
 
 # Set character length and uniqueness
 class PastName(Model):
-    PastName = CharField(max_length=255, unique=True)
+    Past_Names = CharField(max_length=255)
 
 # Make your database connection
     class Meta:
@@ -76,6 +76,9 @@ def main():
     new_last_name = random.choice(last_names)
     new_name = new_first_name + " " + new_last_name
 
+    append_new_name = PastName(Past_Names=new_name)
+    append_new_name.save()
+
     load()
     clear()
 
@@ -86,10 +89,15 @@ def main():
         main()
 
     else:
-        print("Thanks for playing!")
+        print("Here is a list of all the unique names you've been assigned!\n")
+        for index, name in enumerate(PastName.select(), 1):
+            print(f"{index}. {name.Past_Names}")
+        print("\nThanks for playing!")
         exit()
 
 
 # Start program:
 main()
+
+
 
