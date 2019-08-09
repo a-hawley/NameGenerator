@@ -11,7 +11,7 @@ db = SqliteDatabase('names.db')
 
 # Set character length and uniqueness
 class PastName(Model):
-    Past_Names = CharField(max_length=255)
+    Past_Names = CharField(max_length=255, unique=True)
 
 # Make your database connection
     class Meta:
@@ -62,7 +62,7 @@ def main():
     first_name = input("Enter your first name only:\n")
     last_name = input("Enter your last name only:\n")
     whole_name = first_name + " " + last_name
-    load()
+    #load()
     clear()
     print(f"""
     Alright {whole_name},
@@ -76,28 +76,30 @@ def main():
     new_last_name = random.choice(last_names)
     new_name = new_first_name + " " + new_last_name
 
-    append_new_name = PastName(Past_Names=new_name)
-    append_new_name.save()
+    try:
+        append_new_name = PastName(Past_Names=new_name)
+        append_new_name.save()
+    except IntegrityError:
+        name_record = PastName.get(Past_Names=new_name)
+        name_record.save()
 
-    load()
+   # load()
     clear()
 
     print(f"In a destroyed world, your name would be {new_name}!")
     restart = input("Try again? [y/n]:\n")
     if restart.lower() == "y":
-        print("\n" * 100)
+        clear()
         main()
 
     else:
+        clear()
         print("Here is a list of all the unique names you've been assigned!\n")
         for index, name in enumerate(PastName.select(), 1):
-            print(f"{index}. {name.Past_Names}")
+                print(f"{index}. {name.Past_Names}")
         print("\nThanks for playing!")
         exit()
 
 
 # Start program:
 main()
-
-
-
